@@ -12,3 +12,10 @@ include_recipe "apache2"
 apache_site "default" do
   enable true
 end
+
+mysql_service 'default' do
+  port '3306'
+  version '5.5'
+  initial_root_password 'sds123'
+  action [:create, :start]
+end
