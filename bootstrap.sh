@@ -28,3 +28,5 @@ fi
 
 # Use knife to create a new cookbook
 knife cookbook create phpapp
+
+sudo chef-solo -c /home/vagrant/getting_started/chef-repo/solo.rb -j /home/vagrant/getting_started/chef-repo/web.json
