@@ -1,10 +1,16 @@
-Generated at 2015-04-17 01:17:51 +0000
-ArgumentError: You must supply a name when declaring a mysql_config resource
-/opt/chef/embedded/apps/chef/lib/chef/resource_builder.rb:46:in `build'
-/opt/chef/embedded/apps/chef/lib/chef/dsl/recipe.rb:144:in `build_resource'
-/opt/chef/embedded/apps/chef/lib/chef/dsl/recipe.rb:105:in `declare_resource'
-/opt/chef/embedded/apps/chef/lib/chef/dsl/recipe.rb:44:in `method_missing'
-/home/vagrant/getting_started/chef-repo/cookbooks/phpapp/recipes/default.rb:23:in `from_file'
+Generated at 2015-04-17 02:10:11 +0000
+Chef::Exceptions::CookbookNotFound: Cookbook apache not found. If you're loading apache from another cookbook, make sure you configure the dependency in your metadata
+/opt/chef/embedded/apps/chef/lib/chef/cookbook/cookbook_collection.rb:38:in `block in initialize'
+/opt/chef/embedded/lib/ruby/gems/2.1.0/gems/ohai-8.2.0/lib/ohai/mash.rb:77:in `yield'
+/opt/chef/embedded/lib/ruby/gems/2.1.0/gems/ohai-8.2.0/lib/ohai/mash.rb:77:in `default'
+/opt/chef/embedded/lib/ruby/gems/2.1.0/gems/ohai-8.2.0/lib/ohai/mash.rb:77:in `default'
+/opt/chef/embedded/apps/chef/lib/chef/run_context.rb:172:in `[]'
+/opt/chef/embedded/apps/chef/lib/chef/run_context.rb:172:in `load_recipe'
+/opt/chef/embedded/apps/chef/lib/chef/run_context.rb:142:in `block in include_recipe'
+/opt/chef/embedded/apps/chef/lib/chef/run_context.rb:141:in `each'
+/opt/chef/embedded/apps/chef/lib/chef/run_context.rb:141:in `include_recipe'
+/opt/chef/embedded/apps/chef/lib/chef/dsl/include_recipe.rb:26:in `include_recipe'
+/home/vagrant/getting_started/chef-repo/cookbooks/phpapp/recipes/default.rb:13:in `from_file'
 /opt/chef/embedded/apps/chef/lib/chef/mixin/from_file.rb:30:in `instance_eval'
 /opt/chef/embedded/apps/chef/lib/chef/mixin/from_file.rb:30:in `from_file'
 /opt/chef/embedded/apps/chef/lib/chef/cookbook_version.rb:228:in `load_recipe'
