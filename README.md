@@ -1,2 +1,2 @@
-# chef_getting_started
-A messy repo for sorting out where to begin with chef tools
+# SDS Lamp Stack
+This repo contains all the Chef resources necessary to create a local VM capable of supporting our UI and API code
