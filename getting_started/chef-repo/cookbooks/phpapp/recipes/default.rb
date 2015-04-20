@@ -9,6 +9,15 @@
 
 include_recipe "apache2"
 include_recipe "php"
+ 
+begin
+  t = resources(:template => "/etc/php5/cli/php.ini")
+  t.source "php.ini.erb"
+  t.cookbook "phpapp"
+rescue Chef::Exceptions::ResourceNotFound
+  Chef::Log.warn "could not find template /etc/php5/cli/php.ini to modify"
+end
+
 include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
 include_recipe "gearman"
@@ -18,10 +27,29 @@ apache_site "default" do
   enable true
 end
 
+# the php_pear resource expects this directory to exist
+directory "/etc/php5/conf.d" do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  action :create
+end
+
+# The gearman cookbook installs the server, worker and client.
+# This resource makes the php extension available via PECL
 php_pear "gearman" do
   action :install
 end
 
+# Ugly hack to get gearman configured for apache
+bash 'enable_gearman' do
+  user 'root'
+  cwd '/etc/php5/apache2'
+  code <<-EOH
+  cp ../cli/php.ini php.ini
+  EOH
+end
+  
 mysql_service 'default' do
   port '3307' # todo: need to use this port because the "mysql" instance still gets installed on 3306
   version '5.5'
