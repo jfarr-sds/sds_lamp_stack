@@ -9,90 +9,39 @@
 
 include_recipe "apache2"
 include_recipe "php"
- 
-begin
-  t = resources(:template => "/etc/php5/cli/php.ini")
-  t.source "php.ini.erb"
-  t.cookbook "phpapp"
-rescue Chef::Exceptions::ResourceNotFound
-  Chef::Log.warn "could not find template /etc/php5/cli/php.ini to modify"
-end
-
-include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
-include_recipe "gearman"
-include_recipe "gearman::server"
+include_recipe "apache2::mod_proxy"
+
 
 apache_site "default" do
   enable true
 end
 
-# the php_pear resource expects this directory to exist
-directory "/etc/php5/conf.d" do
+# create vhosts dir
+directory "/var/vhosts" do
+  owner node['apache2']['user']
+  group node['apache2']['group']
+  mode '0755'
+  action :create
+end
+
+# add vhost config for QA
+template '/etc/apache2/sites-available/qa-prime.conf' do
+  source 'qa-prime.conf.erb'
+  cookbook 'phpapp'
+  mode '0644'
   owner 'root'
   group 'root'
-  mode '0644'
-  action :create
 end
 
-# The gearman cookbook installs the server, worker and client.
-# This resource makes the php extension available via PECL
-php_pear "gearman" do
-  action :install
+# Enable QA vhost
+link "/etc/apache2/sites-enabled/qa-prime.conf" do
+  to "/etc/apache2/sites-available/qa-prime.conf" 
 end
 
-# Ugly hack to get gearman configured for apache
-bash 'enable_gearman' do
-  user 'root'
-  cwd '/etc/php5/apache2'
-  code <<-EOH
-  cp ../cli/php.ini php.ini
-  EOH
-end
-  
-mysql_service 'default' do
-  port '3307' # todo: need to use this port because the "mysql" instance still gets installed on 3306
-  version '5.5'
-  initial_root_password node['phpapp']['mysql']['initial_root_password']
-  action [:create, :start]
+# link the source to the deployment 
+# todo: this is for development only
+link "/var/vhosts/qa-prime" do
+  to "/home/vagrant/chef-repo/Sentient-Prime-Survey-UI/"
 end
 
-mysql_config 'default' do
-  cookbook 'phpapp'
-  source 'mysite.cnf.erb'
-  notifies :restart, 'mysql_service[default]'
-  action :create
-end
-
-mysql_client 'default' do
-  action :create
-end
-
-mysql2_chef_gem 'default' do
-  action :install
-end
-
-mysql_database node['phpapp']['database_name'] do
-  connection(
-    :host     => node['phpapp']['mysql']['host'],
-    :username => node['phpapp']['mysql']['username'],
-    :password => node['mysql']['server_root_password'],
-    :socket   => node['phpapp']['mysql']['socket'],
-    :port     => node['phpapp']['mysql']['port']
-  )
-  action :create
-end
-
-mysql_database_user node['phpapp']['db_username'] do
-  connection({
-    :host => node['phpapp']['mysql']['host'],
-    :username => node['phpapp']['mysql']['username'],
-    :password => node['mysql']['server_root_password'],
-    :socket   => node['phpapp']['mysql']['socket'],
-    :port     => node['phpapp']['mysql']['port']
-  })
-  password node['phpapp']['db_user_password']
-  database_name node['phpapp']['database_name']
-  privileges [:select,:update,:insert,:create,:delete]
-  action :grant
-end

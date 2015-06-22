@@ -9,9 +9,14 @@
     "db_user_password": "pass"
   },
   
+  "virtual_hosts": 
+  {
+    "server_name": "localhost"
+  },
+  
   "run_list": 
   [ 
     "recipe[apt]", 
-    "recipe[phpapp]" 
+    "recipe[phpapp]"
   ]
 }
