@@ -1,3 +1,8 @@
+default["phpapp"]["user"] = 'vagrant'
+default['phpapp']['environment'] = "development"
+
+default["phpapp"]["app"]["checkout_dir"] = "/home/" + default["phpapp"]["user"] + "/chef-repo/Sentient-Prime-Survey-UI/"
+
 default["phpapp"]["database_name"] = 'phpapp'
 default["phpapp"]["db_username"] = 'phpapp'
 

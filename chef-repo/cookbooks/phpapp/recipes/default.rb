@@ -39,9 +39,3 @@ link "/etc/apache2/sites-enabled/qa-prime.conf" do
   to "/etc/apache2/sites-available/qa-prime.conf" 
 end
 
-# link the source to the deployment 
-# todo: this is for development only
-link "/var/vhosts/qa-prime" do
-  to "/home/vagrant/chef-repo/Sentient-Prime-Survey-UI/"
-end
-

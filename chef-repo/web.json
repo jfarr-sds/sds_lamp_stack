@@ -17,6 +17,6 @@
   "run_list": 
   [ 
     "recipe[apt]", 
-    "recipe[phpapp]"
+    "recipe[phpapp::deploy]"
   ]
 }
