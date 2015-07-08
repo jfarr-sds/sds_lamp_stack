@@ -1,5 +1,5 @@
 default["phpapp"]["user"] = 'vagrant'
-default['phpapp']['environment'] = "development"
+default['phpapp']['environment'] = "qa"
 
 default["phpapp"]["app"]["checkout_dir"] = "/home/" + default["phpapp"]["user"] + "/chef-repo/Sentient-Prime-Survey-UI/"
 

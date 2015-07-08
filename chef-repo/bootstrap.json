@@ -1,0 +1,6 @@
+{
+  "run_list": 
+  [ 
+    "recipe[insecure_bootstrap::encryption_keys_insecure]"
+  ]
+}
