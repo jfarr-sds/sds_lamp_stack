@@ -26,8 +26,8 @@ directory "/var/vhosts" do
 end
 
 # add vhost config for QA
-template '/etc/apache2/sites-available/qa-prime.conf' do
-  source 'qa-prime.conf.erb'
+template '/etc/apache2/sites-available/prime.conf' do
+  source 'prime.conf.erb'
   cookbook 'phpapp'
   mode '0644'
   owner 'root'
@@ -35,7 +35,7 @@ template '/etc/apache2/sites-available/qa-prime.conf' do
 end
 
 # Enable QA vhost
-link "/etc/apache2/sites-enabled/qa-prime.conf" do
-  to "/etc/apache2/sites-available/qa-prime.conf" 
+link "/etc/apache2/sites-enabled/prime.conf" do
+  to "/etc/apache2/sites-available/prime.conf" 
 end
 

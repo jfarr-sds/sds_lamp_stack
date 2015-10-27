@@ -3,15 +3,6 @@ default['phpapp']['environment'] = "qa"
 
 default["phpapp"]["app"]["checkout_dir"] = "/home/" + default["phpapp"]["user"] + "/chef-repo/Sentient-Prime-Survey-UI/"
 
-default["phpapp"]["database_name"] = 'phpapp'
-default["phpapp"]["db_username"] = 'phpapp'
-
-default["phpapp"]['mysql']["initial_root_password"] = 'password'
-default["phpapp"]['mysql']["host"] = '127.0.0.1'
-default["phpapp"]['mysql']["username"] = 'root'
-default["phpapp"]['mysql']["port"] = '3306'
-default["phpapp"]['mysql']["socket"] = '/var/run/mysql=default/mysqld.sock'
-
 node.default['apache']['prefork']['startservers'] = '5'
 node.default['apache']['prefork']['minspareservers'] = '5'
 node.default['apache']['prefork']['maxspareservers'] = '10'
