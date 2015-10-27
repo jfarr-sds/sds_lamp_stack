@@ -34,6 +34,6 @@ if node['phpapp']['environment'] != "development"
 end
 
 # link the source to the deployment 
-link "/var/vhosts/qa-prime" do
+link "/var/vhosts/prime" do
   to node["phpapp"]["app"]["checkout_dir"]
 end

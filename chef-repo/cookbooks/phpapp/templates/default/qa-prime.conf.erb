@@ -1,7 +1,7 @@
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
-        ServerName qa-prime.com
-        DocumentRoot /var/vhosts/qa-prime/public_html
+        ServerName prime.com
+        DocumentRoot /var/vhosts/prime/public_html
 
     	<Directory />
     	Options FollowSymLinks
@@ -16,5 +16,20 @@
 
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
+        
+    <proxy>
+    Order deny,allow
+    Allow from all
+    </proxy>
+    ProxyPass /api/ http://prime-api.sentientdecisionscience.com/
+    ProxyPassReverse /api/ http://prime-api.sentientdecisionscience.com/
+    ProxyPass /express-api/ http://prime-api.sentientdecisionscience.com/express_api/
+    ProxyPassReverse /express-api/ http://prime-api.sentientdecisionscience.com/express_api/
+
+    RewriteEngine on
+    RewriteRule ^/api$ /api/ [R]
+
+CheckSpelling on
+CheckCaseOnly on
 </VirtualHost>
 
