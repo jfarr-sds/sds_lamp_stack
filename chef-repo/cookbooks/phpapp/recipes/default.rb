@@ -20,11 +20,12 @@ include_recipe "php"
 include_recipe "php5-fpm::install"
 include_recipe "apache2::mod_fastcgi"
 include_recipe "apache2::mod_speling"
+include_recipe "apache2::mod_expires"
 include_recipe "apache2::mod_proxy"
 
 
 apache_site "default" do
-  enable true
+  enable false
 end
 
 # create vhosts dir
