@@ -29,7 +29,10 @@
     RewriteEngine on
     RewriteRule ^/api$ /api/ [R]
 
-CheckSpelling on
-CheckCaseOnly on
+	<IfModule mod_speling.c>
+		CheckCaseOnly on
+		CheckSpelling on
+	</IfModule>
+
 </VirtualHost>
 
