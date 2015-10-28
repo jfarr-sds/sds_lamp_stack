@@ -22,6 +22,7 @@ include_recipe "apache2::mod_fastcgi"
 include_recipe "apache2::mod_speling"
 include_recipe "apache2::mod_expires"
 include_recipe "apache2::mod_proxy"
+include_recipe "apache2::mod_proxy_http"
 
 
 apache_site "default" do
@@ -39,6 +40,14 @@ end
 # add vhost config for QA
 template '/etc/apache2/sites-available/prime.conf' do
   source 'prime.conf.erb'
+  cookbook 'phpapp'
+  mode '0644'
+  owner 'root'
+  group 'root'
+end
+
+template '/etc/apache2/mods-available/proxy.conf' do
+  source 'proxy.conf.erb'
   cookbook 'phpapp'
   mode '0644'
   owner 'root'

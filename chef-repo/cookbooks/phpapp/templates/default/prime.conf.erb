@@ -17,7 +17,9 @@
 
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
-        
+
+	# Todo: Parameterize these values for autmation of deployment for dev/qa/prod clusters
+
     <proxy>
     Order deny,allow
     Allow from all
